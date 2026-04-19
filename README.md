@@ -24,3 +24,4 @@ Backend API sederhana berbasis Laravel menggunakan mock data JSON (tanpa databas
 ```
 http://127.0.0.1:8000/api/documentation
 ```
+![Swagger UI](docs/Screenshot%20Swagger%20UI.png)
