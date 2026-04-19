@@ -1,0 +1,356 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "UTP TIS - Ecommerce API",
+        "description": "ecommerce backend API untuk UTP tis",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/items": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Menampilkan semua item",
+                "operationId": "38f04083708efa13b19c689b47445d64",
+                "responses": {
+                    "200": {
+                        "description": "Daftar semua item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Item"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Membuat item baru",
+                "operationId": "5303a71efd2a2fd638dc3ce2bdda9997",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama_item",
+                                    "harga"
+                                ],
+                                "properties": {
+                                    "nama_item": {
+                                        "type": "string",
+                                        "example": "Sepatu Lari"
+                                    },
+                                    "harga": {
+                                        "type": "number",
+                                        "example": 350000
+                                    },
+                                    "stok": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "deskripsi": {
+                                        "type": "string",
+                                        "example": "Sepatu lari ringan"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Item berhasil dibuat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item berhasil dibuat"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Item"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/items/{id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Menampilkan item berdasarkan ID",
+                "operationId": "3e662703a702b80e7f3dc6dd432f9128",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Item"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Item tidak ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item dengan ID 99 tidak Ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Mengedit seluruh data item (replace)",
+                "operationId": "4a2d683f0a5edace6de8e8d0d12c2ee9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama_item",
+                                    "harga",
+                                    "stok",
+                                    "deskripsi"
+                                ],
+                                "properties": {
+                                    "nama_item": {
+                                        "type": "string",
+                                        "example": "Sepatu Baru"
+                                    },
+                                    "harga": {
+                                        "type": "number",
+                                        "example": 400000
+                                    },
+                                    "stok": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "deskripsi": {
+                                        "type": "string",
+                                        "example": "Deskripsi baru"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item berhasil diupdate"
+                    },
+                    "404": {
+                        "description": "Item tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Menghapus item berdasarkan ID",
+                "operationId": "f7d8019e7a58101f594ab509931e3bb2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Item tidak ditemukan"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Mengedit sebagian data item",
+                "operationId": "31a9621e92bfdcf796c7883e529c0b8c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama_item": {
+                                        "type": "string",
+                                        "example": "Nama Baru"
+                                    },
+                                    "harga": {
+                                        "type": "number",
+                                        "example": 500000
+                                    },
+                                    "stok": {
+                                        "type": "integer",
+                                        "example": 20
+                                    },
+                                    "deskripsi": {
+                                        "type": "string",
+                                        "example": "Desc baru"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item berhasil diupdate sebagian"
+                    },
+                    "404": {
+                        "description": "Item tidak ditemukan"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Item": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nama_item": {
+                        "type": "string",
+                        "example": "Sepatu Lari"
+                    },
+                    "harga": {
+                        "type": "number",
+                        "example": 350000
+                    },
+                    "stok": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "deskripsi": {
+                        "type": "string",
+                        "example": "Sepatu lari ringan"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2026-04-19 10:00:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2026-04-19 10:00:00"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Items",
+            "description": "Items"
+        }
+    ]
+}
